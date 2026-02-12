@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senac.financeapp.controller.DashboardController">
+   <children>
+      <SplitPane dividerPositions="0.3" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="left-panel">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="798.0" prefWidth="355.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label styleClass="title-label" text="FinanceApp">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="currentBalanceLabel" styleClass="balance-label" text="R$ 0,00">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Label styleClass="section-title" text="Nova Transação">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="transactionTypeComboBox" prefWidth="250.0" promptText="Tipo (Receita/Despesa)" styleClass="form-field" />
+                        <TextField fx:id="amountField" prefWidth="250.0" promptText="Valor" styleClass="form-field" />
+                        <DatePicker fx:id="datePicker" prefWidth="250.0" promptText="Data" styleClass="form-field" />
+                        <ComboBox fx:id="categoryComboBox" prefWidth="250.0" promptText="Categoria" styleClass="form-field" />
+                        <TextField fx:id="descriptionField" prefWidth="250.0" promptText="Descrição (Opcional)" styleClass="form-field" />
+                        <Button fx:id="saveTransactionButton" mnemonicParsing="false" prefWidth="250.0" styleClass="primary-button" text="Salvar Transação" />
+                        <Button fx:id="clearFieldsButton" mnemonicParsing="false" prefWidth="250.0" styleClass="secondary-button" text="Limpar Campos" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="right-panel">
+               <children>
+                  <VBox prefHeight="798.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label styleClass="section-title" text="Minhas Transações">
+                           <VBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <DatePicker fx:id="filterStartDatePicker" promptText="Data Início" styleClass="filter-field" />
+                              <DatePicker fx:id="filterEndDatePicker" promptText="Data Fim" styleClass="filter-field" />
+                              <ComboBox fx:id="filterCategoryComboBox" prefWidth="150.0" promptText="Categoria" styleClass="filter-field" />
+                              <Button fx:id="applyFilterButton" mnemonicParsing="false" styleClass="action-button" text="Filtrar" />
+                              <Button fx:id="clearFilterButton" mnemonicParsing="false" styleClass="action-button" text="Limpar Filtro" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <TableView fx:id="transactionsTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                            <TableColumn fx:id="colType" prefWidth="100.0" text="Tipo" />
+                              <TableColumn fx:id="colAmount" prefWidth="120.0" text="Valor" />
+                              <TableColumn fx:id="colDate" prefWidth="120.0" text="Data" />
+                              <TableColumn fx:id="colCategory" prefWidth="150.0" text="Categoria" />
+                              <TableColumn fx:id="colDescription" prefWidth="250.0" text="Descrição" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                              <Button fx:id="editTransactionButton" disable="true" mnemonicParsing="false" styleClass="secondary-button" text="Editar Selecionado" />
+                              <Button fx:id="deleteTransactionButton" disable="true" mnemonicParsing="false" styleClass="danger-button" text="Remover Selecionado" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                         <HBox alignment="CENTER_LEFT" spacing="10.0">
+                             <children>
+                                 <Label styleClass="section-title" text="Ações">
+                                     <HBox.margin>
+                                         <Insets />
+                                     </HBox.margin>
+                                 </Label>
+                                 <Button fx:id="exportCsvButton" mnemonicParsing="false" styleClass="action-button" text="Exportar CSV" />
+                                 <Button fx:id="exportPdfButton" mnemonicParsing="false" styleClass="action-button" text="Exportar PDF" />
+                                 <Button fx:id="printButton" mnemonicParsing="false" styleClass="action-button" text="Imprimir" />
+                             </children>
+                             <VBox.margin>
+                                 <Insets left="20.0" />
+                             </VBox.margin>
+                         </HBox>
+                        <Label styleClass="section-title" text="Gráficos">
+                           <VBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="250.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <BarChart fx:id="monthlyExpensesChart" prefHeight="250.0" prefWidth="400.0" title="Gastos Mensais" HBox.hgrow="ALWAYS">
+                                <xAxis>
+                                  <CategoryAxis label="Mês" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis label="Total" side="LEFT" />
+                                </yAxis>
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="10.0" />
+                                 </HBox.margin>
+                              </BarChart>
+                              <PieChart fx:id="categoryDistributionChart" prefHeight="250.0" prefWidth="400.0" title="Distribuição por Categoria" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </PieChart>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
